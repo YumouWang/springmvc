@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by dzkan on 2016/3/8.
  */
@@ -22,4 +24,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     public void updateUser(@Param("qNickname") String nickname, @Param("qFirstName") String firstName,
                            @Param("qLastName") String qLastName, @Param("qPassword") String password, @Param("qId") Integer id);
 
+
+    @Query("select us from UserEntity us where us.firstName=:qFirstName")
+    public List<UserEntity> selectUser(@Param("qFirstName") String firstName);
 }

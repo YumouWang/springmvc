@@ -1,6 +1,8 @@
 package com.qd.controller;
 
+import com.qd.model.Sender;
 import com.qd.model.UserEntity;
+import com.qd.repository.SenderRepository;
 import com.qd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-/**
- * Created by dzkan on 2016/3/8.
- */
 @Controller
 public class MainController {
 
     // 自动装配数据库接口，不需要再写原始的Connection来操作数据库
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    SenderRepository senderRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
@@ -111,4 +113,14 @@ public class MainController {
         userRepository.flush();
         return "redirect:/admin/users";
     }
+
+    // 查询用户
+    @RequestMapping(value = "/admin/users/query", method = RequestMethod.GET)
+    public String queryUser(ModelMap modelMap) {
+        List<UserEntity> userList = userRepository.selectUser("yumou1");
+        modelMap.addAttribute("userList", userList);
+        System.out.println(userList);
+        return "admin/users";
+    }
+
 }

@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-/**
- * Created by dzkan on 2016/3/18.
- */
 @Controller
 public class BlogController {
 
